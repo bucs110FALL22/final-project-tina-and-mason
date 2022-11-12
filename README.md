@@ -33,6 +33,38 @@
 
 ## Program Design
 
+* profMoore:
+  *  health 
+     hungerLevel 
+     xcoord 
+     ycoord
+     eat()
+     moveUp()
+     moveDown()
+     moveRight()
+     moveLeft()
+     
+* student:
+  *  health 
+     xcoord 
+     ycoord
+     moveUp()
+     moveDown()
+     moveRight()
+     moveLeft()
+     
+* TA:
+  *  health
+     discordNotifs
+     self.xcoord
+     self.ycoord
+     respondDiscord()
+     moveUp()
+     moveDown()
+     moveRight()
+     moveLeft() 
+
+
 * Non-Standard libraries
     * << You should have a list of any additional libraries or modules used (pygame, request) beyond non-standard python. 
          For each additional module you should include
