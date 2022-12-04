@@ -102,6 +102,11 @@ The Project is broken down into the following file structure:
 
 | Step                 |Procedure             |Expected Results                   |
 |----------------------|:--------------------:|----------------------------------:|
-|  1                   | Run Counter Program  |GUI window appears with count = 0  |
-|  2                   | click count button   | display changes to count = 1      |
+|  1                   | Run Controller()     | Main menu appears with options to play certain minigames. One point will be loaded automatically|
+|  2                   | Click on Ducky Doom  | Loads ducky mini game screen      |
+|  3                   | Press spacebar       | Obstacles will come at the duck and the user must press space to make the duck jump to avoid them |
+| 4                    | Attempt to win       | 1. Gain 10 points by winning 5 minigames 2. User will be able to cash in those points to win the game |
+| 5                    | Gain 10 points and win | 1. Winning screen will be shown with an option to play again
+| 6                    | Points are at a negative value from losing | 1. A losing screen will be shown with an option to play again
+
 etc...

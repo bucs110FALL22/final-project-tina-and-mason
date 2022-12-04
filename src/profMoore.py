@@ -1,11 +1,14 @@
+import pygame
+from src import controller
+
 class ProfMoore:
   def __init__(self):
+ 
     self.health = 100
     self.hungerLevel = 0
     self.xcoord = 0
     self.ycoord = 0
-    self.image = pygame.image.load("assets/profMoore.png").convert_alpha()
-    self.rect = self.image.get_rect()
+    
 
   def eat(self):
     '''
