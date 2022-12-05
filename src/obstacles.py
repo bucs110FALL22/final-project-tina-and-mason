@@ -11,3 +11,6 @@ class Obstacles(pygame.sprite.Sprite):
     self.rect.x = 250
     self.rect.y = 600
     self.coords = (self.rect.x, self.rect.y)
+
+  def draw(self, screen):
+    screen.blit(self.image, (self.rect.x, self.rect.y))
