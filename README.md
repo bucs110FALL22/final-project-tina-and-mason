@@ -16,7 +16,7 @@
 
 ## Project Description
 
-This project is a Professor Moore Life Simulator. There is just one mini game implemented where the user plays as a rubber duck to avoid coding errors. The game is styled after the Google Dinosaur game. Once the user reaches 5 points, they are able to exchange it for a ham and cheese sandwich and win the game. They only have two lives to achieve 5 points. For every obstacle avoided, they get a point.
+This project is a Professor Moore Life Simulator. There is just one mini game implemented where the user plays as a rubber duck to avoid coding errors. The game is styled after the Google Dinosaur game. Once the user reaches 3 points, they are able to exchange it for a ham and cheese sandwich and win the game. They only have two lives to achieve 3 points. For every obstacle avoided, they get a point.
 
 ***    
 
@@ -34,16 +34,7 @@ This project is a Professor Moore Life Simulator. There is just one mini game im
 
 ## Program Design
 
-* profMoore:
-  *  health 
-     hungerLevel 
-     xcoord 
-     ycoord
-     eat()
-     moveUp()
-     moveDown()
-     moveRight()
-     moveLeft()
+ 
      
 * obstacle:
   * draw()
@@ -59,12 +50,12 @@ This project is a Professor Moore Life Simulator. There is just one mini game im
          For each additional module you should include
          - url for the module documentation
          - a short description of the module >>
+      pygame
 * Class Interface Design
     * << A simple drawing that shows the class relationships in your code (see below for an example). This does not need to be overly detailed, but should show how your code fits into the Model/View/Controller paradigm. >>
         * ![class diagram](assets/class_diagram.jpg) 
 * Classes
-    class profMoore:
-      a class containing coordinates
+ 
     class duck:
       a class containing coordinates of the duck and a function to draw it
     class obstacles:
@@ -79,10 +70,11 @@ The Project is broken down into the following file structure:
     controller.py
     duck.py
     obstacles.py
-    profMoore.py
+  
   
 * assets
     bingbkgd.jpg
+    blurSandwich.png
     btn.ducky.png
     class_diagram.jpg
     duck.png
@@ -93,6 +85,7 @@ The Project is broken down into the following file structure:
     goodLuckyDucky.png
     indenterror.png
     invalidsyntax.png
+    kitchenBtn.png
     livesBtn.png
     mooreBubble1.png
     ocean.png
@@ -100,7 +93,10 @@ The Project is broken down into the following file structure:
     pressAnyKeyMsg.png
     profMoore.png
     sandwich.jpg
+    sickoSandwich.mp3
+    sillyMusic.mp3
     typeError.png
+    winSandwich.png
   
 
 ***
@@ -122,8 +118,8 @@ The Project is broken down into the following file structure:
 |  1                   | Run Controller()     | Main menu appears with options to play certain minigames. One point will be loaded automatically|
 |  2                   | Click on Ducky Doom  | Loads ducky mini game screen      |
 |  3                   | Press spacebar       | Obstacles will come at the duck and the user must press space to make the duck jump to avoid them |
-| 4                    | Attempt to win       | 1. Gain 5 points by jumping over the appropriate amount of obstacles 2. User will be able to cash in those points to win the game and get a sandwich|
-| 5                    | Gain 10 points and win | 1. Winning screen will be shown with an option to play again
-| 6                    | Points are at a negative value from losing | 1. A losing screen will be shown with an option to play again
+| 4                    | Attempt to win       | 1. Gain 3 points by jumping over the appropriate amount of obstacles 2. User will be able to cash in those points to win the game and get sandwiches|
+| 5                    | Gain 3 points and press the kitchen button | 1. Winning screen will be shown and different music will play
+| 6                    | Lives are at a negative value from losing | 1. A losing screen will be shown with an option to play again
 
 etc...

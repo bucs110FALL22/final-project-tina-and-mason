@@ -12,19 +12,25 @@ class Controller:
     Returns: N/A
     '''
     pygame.init()
-    professor = profMoore.ProfMoore()
+     
     self.screen = pygame.display.set_mode(dimensions)
     
     self.homeScreen = True
     self.points = 0
     self.lives = 2
     self.duckyGame = False
+    self.win = False
 
     #sets up background
     bingBkgd = pygame.image.load("assets/bingbkgd.jpg")
     self.screen.blit(bingBkgd, (-150, -300))
+    pygame.mixer.init()
+
+    pygame.mixer.music.load("assets/sillyMusic.mp3")
+
+    pygame.mixer.music.play()
     
-    #assistant = TA()
+     
  
     
   def mainloop(self):
@@ -33,18 +39,34 @@ class Controller:
     Arguments: (obj) self
     Returns: N/A
     '''
-    
+     
+
+     
     while self.duckyGame:
       self.duckyDoomLoop()
       
     while self.homeScreen:
-      if self.lives == 0:
+      if self.lives == -1:
         self.screen.fill("black")
         finalLoss = pygame.image.load("assets/finalLoss.png")
-        self.screen.blit(finalLoss, (100, 300))
-        pygame.time.delay(3000)
-        self.lives = 2
-        self.points = 0
+        finalLoss = pygame.transform.scale(finalLoss, (357, 110))
+        self.screen.blit(finalLoss, (50, 150))
+        click2playMsg = pygame.image.load("assets/click2playMsg.png")
+        click2playMsg = pygame.transform.scale(click2playMsg, (270, 80))
+        self.screen.blit(click2playMsg, (100, 300))
+        pygame.display.flip()
+        loseScreen = True
+        while loseScreen:
+          for event in pygame.event.get():
+            if event.type == pygame.MOUSEBUTTONDOWN:
+              self.homeScreen = True
+              self.lives = 2
+              self.points = 0
+              loseScreen = False
+        pygame.display.flip()
+        
+     
+       
         
       bingBkgd = pygame.image.load("assets/bingbkgd.jpg")
       self.screen.blit(bingBkgd, (-150, -300))
@@ -59,6 +81,10 @@ class Controller:
       mooreBubble1 = pygame.transform.scale(mooreBubble1, (290, 120))
       self.screen.blit(mooreBubble1, (50, 225))
 
+      kitchenBtn = pygame.image.load("assets/kitchenBtn.png")
+      kitchenBtn = pygame.transform.scale(kitchenBtn, (250, 50))
+      self.screen.blit(kitchenBtn, (110, 140))
+      
       pointsBtn = pygame.image.load("assets/pointsBtn.png").convert_alpha()
       pointsBtn = pygame.transform.scale(pointsBtn, (150, 60))
       self.screen.blit(pointsBtn, (350, 0))
@@ -83,10 +109,12 @@ class Controller:
       pygame.display.flip()
     
       for event in pygame.event.get():
-        if event.type == pygame.MOUSEBUTTONDOWN:
-          if pygame.mouse.get_pos() <= (440, 410) and pygame.mouse.get_pos() >= (300, 350):
+        if event.type == pygame.MOUSEBUTTONDOWN and self.homeScreen and not self.win and self.lives!=-1:
+          if pygame.mouse.get_pos() <= (440, 410) and pygame.mouse.get_pos() >= (300, 350) and pygame.mouse.get_pos()[1] > 350 and pygame.mouse.get_pos()[1] < 410:
             self.duckyGame = True
             self.duckyDoomLoop()
+          elif pygame.mouse.get_pos() <= (360, 190) and pygame.mouse.get_pos() >= (110, 140) and pygame.mouse.get_pos()[1] > 140 and pygame.mouse.get_pos()[1] < 190:
+            self.shopLoop() 
     
     pygame.display.flip()
 
@@ -149,7 +177,7 @@ class Controller:
     
       while running:
         if obstacleNum==-1:
-          pygame.time.delay(3000)
+          pygame.time.delay(1000)
           obstacleNum+=1
         if obstacleNum==0:
           error = error404msg
@@ -191,18 +219,20 @@ class Controller:
              running = False
               
         key = pygame.key.get_pressed()
-        if key[pygame.K_SPACE]:
-          for i in range(100):
+        if key[pygame.K_SPACE] and running:
+          for i in range(110):
             ducky.rect.y -= 1
             self.screen.blit(oceanbkgd, (0, 0))
             ducky.draw(self.screen)
             error.draw(self.screen)
             ducky.draw(self.screen)
-            error.rect.x-=1
+            error.rect.x-=0.1
             spritesList.draw(self.screen)
             pygame.display.flip()
-          for i in range(100):
+          error.rect.x-=2
+          for i in range(110):
             ducky.rect.y += 1
+            #error.rect.x-=1
             self.screen.blit(oceanbkgd, (0, 0))
             error.draw(self.screen)
             ducky.draw(self.screen)
@@ -238,23 +268,49 @@ class Controller:
  
   def shopLoop(self):
     '''
-      This loop listens to user input after the user is in menu mode. With pressing certain keys, the user can exchange 5 points for a ham and cheese sandwich and win the game. 
+      This loop listens to user input after the user is in menu mode. With pressing certain keys, the user can exchange 3 points for a ham and cheese sandwich and win the game. 
     '''
+    pygame.mixer.music.stop()
+    pygame.mixer.music.load("assets/sickoSandwich.mp3")
 
+    pygame.mixer.music.play() 
     self.screen.fill("black")
-    if self.points==5:
+    if self.points>=3:
       sandwich = pygame.image.load("assets/sandwich.jpg").convert_alpha()
+      sandwich = pygame.transform.scale(sandwich, (500,500))
       self.screen.blit(sandwich, (0, 0))
-      pygame.time.delay(10000)
-    else:
-      text ="You don't have enough points."
-      font = pygame.font.SysFont(None, 30)
-      sandwich = font.render(text, True, "black")
-
-      sandwichRect = sandwich.get_rect()
-      sandwichRect.topleft = (20, 20)
-      self.screen.blit(sandwich, (250, 250))
+      winMsg = pygame.image.load("assets/winSandwich.png")
+      winMsg = pygame.transform.scale(winMsg, (450, 90))
+      self.screen.blit(winMsg, (10, 200))
+       
       pygame.display.flip()
+      self.win = True
+      while self.win:
+        pygame.time.delay(10000)
+    else:
+       
+      running = True
+      while running:
+        text ="You don't have enough points to get anything.."
+        font = pygame.font.SysFont(None, 30)
+        sandwich = font.render(text, True, "White")
+  
+        sandwichRect = sandwich.get_rect()
+        sandwichRect.topleft = (20, 20)
+        self.screen.blit(sandwich, (25, 150))
+        text2 = "Click anywhere to go back to hard labor."
+        font2 = pygame.font.SysFont(None, 30)
+        clickAgain = font2.render(text2, True, "White")
+        self.screen.blit(clickAgain, (60, 310))
+
+        blurSandwich = pygame.image.load("assets/blurSandwich.png")
+        blurSandwich = pygame.transform.scale(blurSandwich, (140, 90))
+        self.screen.blit(blurSandwich, (200, 200))
+        pygame.display.flip()
+        for event in pygame.event.get():
+          if event.type == pygame.MOUSEBUTTONDOWN:  
+            self.homeScreen = True
+            running = False 
       
     
     
